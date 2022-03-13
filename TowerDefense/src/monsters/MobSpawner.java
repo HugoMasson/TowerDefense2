@@ -6,7 +6,7 @@ import helper.CasePath;
 import map.Case;
 
 public class MobSpawner {
-	
+	int constDelay = 8;
 	int wave, caseSize;
 	ArrayList<AbstractMob> mobs;
 	
@@ -26,8 +26,8 @@ public class MobSpawner {
 	public void nextWave() { wave++; };
 	
 	public ArrayList<AbstractMob> createMobWave(Case[][] c) {
-		for(int i = 0; i < 2000; i++) {
-			mobs.add(new SmallGoblin(100, 2, 6.5*caseSize, 0*caseSize, caseSize/4, caseSize, caseSize/4, c));
+		for(int i = 0; i < 50; i++) {
+			mobs.add(new SmallGoblin(100, 2, 6.5*caseSize, 0*caseSize, caseSize/4, caseSize, caseSize/4, c, i*constDelay));
 		}
 		return mobs;
 	}

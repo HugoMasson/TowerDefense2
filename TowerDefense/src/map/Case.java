@@ -8,7 +8,7 @@ import weapons.ArcherDefense;
 
 public class Case {
 	
-	AbstractDefense def;
+	AbstractDefense def = null;
 	boolean isSelected = false;
 	int height;
 	Color col;
