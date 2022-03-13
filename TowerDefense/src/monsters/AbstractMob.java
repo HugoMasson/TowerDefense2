@@ -1,0 +1,93 @@
+package monsters;
+
+import java.awt.Graphics;
+
+import helper.CasePath;
+import map.Case;
+
+public abstract class AbstractMob {
+	
+	double maxHealth, health, x, y, targetX, targetY;
+	double speed;
+	int caseSize, padding;
+	Case[][] map;
+	
+	public AbstractMob(int _maxHealth, double _speed, double _x, double _y, int _caseSize, int _padding, Case[][] _map) {
+		maxHealth = _maxHealth;
+		health = _maxHealth;
+		speed = _speed;
+		caseSize = _caseSize;
+		x = _x;
+		y = _y;
+		targetX = -1;
+		targetY = -1;
+		
+		padding = _padding;
+		map = _map;
+	}
+	
+	public abstract void draw(Graphics g);
+	
+	public boolean takeDamage(double amount) {
+		if(health - amount <= 0) {
+			return true;
+		} else {
+			health -= amount;
+			return false;
+		}
+	}
+	
+	public double getX() { return x; }
+	public double getY() { return y; }
+	
+	public void setX(double px) { x = px; }
+	public void setY(double py) { y = py; }
+	
+	private boolean almost(double a, double b) {
+		if(a + speed > b && a - speed < b) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean move(CasePath casePath) {
+		int index = -1;
+		int xCase = (int) (x/caseSize);
+		int yCase = (int) (y/caseSize);
+		for(int i = casePath.getPath().length-1; i > 0; i--) {
+			if(casePath.getPath()[i][1] == xCase && casePath.getPath()[i][0] == yCase) {
+				index = i;
+			}
+		}
+		if(index != -1) {
+			//System.out.println((!almost(targetY, y)));
+			if(targetX == -1 || (almost(targetX, x) && almost(targetY, y))) {
+				targetX = casePath.getPath()[index-1][1]*caseSize+caseSize/2;
+				targetY = casePath.getPath()[index-1][0]*caseSize+caseSize/2;
+			} else {
+				
+				if(almost(targetX, x)) {
+					if(targetY > y) {
+						y+=speed;
+					} else {
+						y-=speed;
+					}
+					
+				} 
+				if(almost(targetY, y)) {
+					if(targetX > x) {
+						x+=speed;
+					} else {
+						x-=speed;
+					}
+				}
+			}
+			
+		} else {
+			System.out.println("uwu"); //tower reached...
+			return false;
+		}
+		return true;
+	}
+
+}
