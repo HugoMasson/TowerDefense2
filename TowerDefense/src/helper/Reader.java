@@ -16,6 +16,7 @@ import java.util.Scanner;
 import enums.CaseStatus;
 import map.Case;
 import weapons.ArcherDefense;
+import weapons.MainTowerDefense;
 import weapons.TeslaDefense;
 
 public class Reader {
@@ -49,7 +50,7 @@ public class Reader {
 							world[i][j] = new Case(0, CaseStatus.PATH);
 							break;
 						case "t":
-							world[i][j] = new Case(0, CaseStatus.TOWER);
+							world[i][j] = new Case(0, CaseStatus.TOWER, new MainTowerDefense(j, i, 0f));
 							break;
 						case "A":
 							world[i][j] = new Case(0, CaseStatus.DEFENSE, new ArcherDefense(j, i, 0f));

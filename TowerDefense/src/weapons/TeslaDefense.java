@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class TeslaDefense extends AbstractDefense{
 
 	public TeslaDefense(int _x, int _y) {
-		super(_x, _y, 200);
+		super(_x, _y, 200, 75);
 		
 	}
 	

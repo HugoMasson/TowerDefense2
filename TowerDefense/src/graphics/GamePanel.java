@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import animations.LifeBarAnimation;
 import animations.SelectedCaseAnimation;
 import enums.CaseStatus;
 import enums.GenerationMode;
@@ -71,7 +72,7 @@ public class GamePanel extends JPanel{
 			    		map.getMap()[x][y].setSelected(true);
 			    		lastPosSelected[0] = e.getY()/caseSize;
 			    		lastPosSelected[1] = e.getX()/caseSize;
-			    		if(map.getMap()[x][y].getStatus() == CaseStatus.DEFENSE) {	//defense
+			    		if(map.getMap()[x][y].getStatus() == CaseStatus.DEFENSE || map.getMap()[x][y].getStatus() == CaseStatus.TOWER) {	//defense
 		    				gp.attacheMenu(map.getMap()[x][y].getStatus(), map.getMap(), x, y, map.getMap()[x][y].getDefense());
 		    			} else {	//other
 		    				gp.attacheMenu(map.getMap()[x][y].getStatus(), map.getMap(), x, y);
@@ -83,7 +84,7 @@ public class GamePanel extends JPanel{
 			    			lastPosSelected[0] = x;
 				    		lastPosSelected[1] = y;
 			    			hasSelected = !hasSelected;
-			    			if(map.getMap()[x][y].getStatus() == CaseStatus.DEFENSE) {	//defense
+			    			if(map.getMap()[x][y].getStatus() == CaseStatus.DEFENSE || map.getMap()[x][y].getStatus() == CaseStatus.TOWER) {	//defense
 			    				gp.attacheMenu(map.getMap()[x][y].getStatus(), map.getMap(), x, y, map.getMap()[x][y].getDefense());
 			    			} else {	//other
 			    				gp.attacheMenu(map.getMap()[x][y].getStatus(), map.getMap(), x, y);
@@ -106,7 +107,6 @@ public class GamePanel extends JPanel{
 				 if(map.getMap()[x][y].getDefense() != null) {
 					 map.getMap()[x][y].getDefense().draw(g, caseSize);
 				 }
-				 
 				 if(map.getMap()[x][y].isSelected()) {
 					 if(isSelectedBold) {
 						 SelectedCaseAnimation.boldSelectedAnimation(g, caseSize, y, x, Color.red);
@@ -125,6 +125,16 @@ public class GamePanel extends JPanel{
 				 spawner.getWave().remove(i);
 			 } else {
 				 spawner.getWave().get(i).draw(g);
+				 LifeBarAnimation.drawLifeBar(spawner.getWave().get(i), g);
+			 }
+		 }
+		 
+		 g.setColor(Color.red);
+		 for(int x = 0; x < map.getMap().length; x++) {
+			 for(int y = 0; y < map.getMap()[x].length; y++) {
+				 if(map.getMap()[x][y].getDefense() != null) {
+					 g.drawOval(caseSize/2 +y*caseSize-map.getMap()[x][y].getDefense().getRange()/2, caseSize/2 +x*caseSize-map.getMap()[x][y].getDefense().getRange()/2, map.getMap()[x][y].getDefense().getRange(), map.getMap()[x][y].getDefense().getRange());
+				 }
 			 }
 		 }
 	 }

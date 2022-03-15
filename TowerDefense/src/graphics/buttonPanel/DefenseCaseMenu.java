@@ -65,7 +65,10 @@ public class DefenseCaseMenu extends JPanel{
 		this.setBackground(Color.gray);
 		
 		this.add(UpgradeDefense);
-		this.add(DeleteDefense);
+		if(def.getName() != "Main Tower") {
+			this.add(DeleteDefense);
+		}
+		
 	}
 
 }

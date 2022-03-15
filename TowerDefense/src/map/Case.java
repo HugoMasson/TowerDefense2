@@ -48,7 +48,7 @@ public class Case {
 	}
 	
 	public AbstractDefense getDefense() {
-		if(status == CaseStatus.DEFENSE) {
+		if(status == CaseStatus.DEFENSE || status == CaseStatus.TOWER) {
 			return def;
 		} else {
 			return null;

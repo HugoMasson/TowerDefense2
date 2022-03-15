@@ -15,7 +15,7 @@ public class Map {
 		if(genrationMode == GenerationMode.READ_FILE) {
 			world = Reader.getMap();
 		} else {
-			
+			System.out.println("Not supported yet");
 		}
 
 	}

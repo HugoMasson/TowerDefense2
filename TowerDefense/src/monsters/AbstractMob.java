@@ -14,7 +14,7 @@ public abstract class AbstractMob {
 	
 	public AbstractMob(int _maxHealth, double _speed, double _x, double _y, int _caseSize, int _padding, Case[][] _map, int _timer) {
 		maxHealth = _maxHealth;
-		health = _maxHealth;
+		health = 0.3*_maxHealth;
 		speed = _speed;
 		caseSize = _caseSize;
 		x = _x;
@@ -36,6 +36,8 @@ public abstract class AbstractMob {
 			return false;
 		}
 	}
+	
+	public double getHealthRatio() { return (health/maxHealth); }
 	
 	public double getX() { return x; }
 	public double getY() { return y; }
@@ -85,7 +87,7 @@ public abstract class AbstractMob {
 				}
 				
 			} else {
-				System.out.println("uwu"); //tower reached...
+				map[yCase][xCase].getDefense().takeDamage();
 				return false;
 			}
 		} else {

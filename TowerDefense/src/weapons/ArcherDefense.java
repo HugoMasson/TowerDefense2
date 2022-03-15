@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 public class ArcherDefense extends AbstractDefense{
 
 	public ArcherDefense(int _x, int _y, double _angle) {
-		super(_x, _y, 100);
+		super(_x, _y, 100, 200);
 	}
 
 	public void setAngle(double a) { angle = a; }
