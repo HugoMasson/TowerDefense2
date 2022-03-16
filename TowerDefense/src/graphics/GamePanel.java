@@ -18,6 +18,7 @@ import map.Case;
 import map.Map;
 import monsters.AbstractMob;
 import monsters.MobSpawner;
+import weapons.AbstractDefense;
 import weapons.ArcherDefense;
 
 public class GamePanel extends JPanel{
@@ -27,6 +28,7 @@ public class GamePanel extends JPanel{
 	Dimension dim;
 	ControlPanel gp;
 	Map map;
+	ArrayList<AbstractDefense> defenses;
 	CasePath casePath;
 	MobSpawner spawner;
 	boolean isSelectedBold;
@@ -43,6 +45,19 @@ public class GamePanel extends JPanel{
 		dim = _dim;
 		gp = _gp;
 		map = new Map(GenerationMode.READ_FILE);
+		defenses = new ArrayList<AbstractDefense>();
+		for(int i = 0; i < map.getMap().length; i++) {
+			for(int j = 0; j < map.getMap()[i].length; j++) {
+				if(map.getMap()[i][j].getDefense() instanceof AbstractDefense) {
+					defenses.add(map.getMap()[i][j].getDefense());
+				}
+			}
+		}
+		for(int i = 0; i < defenses.size(); i++) {
+			System.out.println(defenses.get(i).getName());
+		}
+		
+		
 		casePath = new CasePath(map.getMap());
 		
 		isSelectedBold = true;
@@ -126,6 +141,20 @@ public class GamePanel extends JPanel{
 			 } else {
 				 spawner.getWave().get(i).draw(g);
 				 LifeBarAnimation.drawLifeBar(spawner.getWave().get(i), g);
+				 for(int j = 0; j < defenses.size(); j++) {
+					 double first = ((defenses.get(j).getX()*caseSize)-spawner.getWave().get(i).getX());
+					 first *= first;
+					 double second = ((defenses.get(j).getY()*caseSize)-spawner.getWave().get(i).getY());
+					 second *= second;
+
+					 if(Math.sqrt(first + second) <= defenses.get(j).getRange()+caseSize/2) {
+						 //System.out.println("IN Range "+defenses.get(j).getName());
+						 if(spawner.getWave().get(i).takeDamage(defenses.get(j).attack())) {
+							 spawner.getWave().remove(i);
+							 System.out.println("Dead");
+						 }
+					 }
+				 }
 			 }
 		 }
 		 
@@ -133,7 +162,7 @@ public class GamePanel extends JPanel{
 		 for(int x = 0; x < map.getMap().length; x++) {
 			 for(int y = 0; y < map.getMap()[x].length; y++) {
 				 if(map.getMap()[x][y].getDefense() != null) {
-					 g.drawOval(caseSize/2 +y*caseSize-map.getMap()[x][y].getDefense().getRange()/2, caseSize/2 +x*caseSize-map.getMap()[x][y].getDefense().getRange()/2, map.getMap()[x][y].getDefense().getRange(), map.getMap()[x][y].getDefense().getRange());
+					 g.drawOval(caseSize/2 +y*caseSize-map.getMap()[x][y].getDefense().getRange(), caseSize/2 +x*caseSize-map.getMap()[x][y].getDefense().getRange(), map.getMap()[x][y].getDefense().getRange()*2, map.getMap()[x][y].getDefense().getRange()*2);
 				 }
 			 }
 		 }

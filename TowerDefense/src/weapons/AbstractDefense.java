@@ -19,6 +19,7 @@ public abstract class AbstractDefense {
 	public abstract String getName();
 	public abstract void setAngle(double a);
 	public abstract double getAngle();
+	public abstract double attack();
 
 	public boolean takeDamage() {
 		return false;
@@ -27,5 +28,7 @@ public abstract class AbstractDefense {
 	public void lvlUp() { lvl++; }
 	public int getLvl() { return lvl; }
 	public int getRange() { return range; }
+	public int getX() { return x; }
+	public int getY() { return y; }
 	
 }

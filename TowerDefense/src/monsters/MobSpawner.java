@@ -30,8 +30,8 @@ public class MobSpawner {
 	
 	public ArrayList<AbstractMob> createMobWave(Case[][] c) {
 		random = new Random();
-		for(int i = 0; i < 10; i++) {
-			mobs.add(new SmallGoblin(100, 1, 6.5*caseSize, 0*caseSize, caseSize/4, caseSize, caseSize/4, c, i*constDelay+random.nextInt(50)));
+		for(int i = 0; i < 100; i++) {
+			mobs.add(new SmallGoblin(100, 2, 6.5*caseSize, 0*caseSize, caseSize/4, caseSize, caseSize/4, c, constDelay+random.nextInt(50)));
 		}
 		return mobs;
 	}

@@ -3,10 +3,12 @@ package weapons;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class TeslaDefense extends AbstractDefense{
+public class TeslaDefense extends AbstractDefense {
+	
+	double dmg = 5;
 
 	public TeslaDefense(int _x, int _y) {
-		super(_x, _y, 200, 75);
+		super(_x, _y, 200, 45);
 		
 	}
 	
@@ -26,5 +28,11 @@ public class TeslaDefense extends AbstractDefense{
 
 	@Override
 	public double getAngle() { return 0; }
+
+	@Override
+	public double attack() {
+		return dmg;
+		
+	}
 
 }

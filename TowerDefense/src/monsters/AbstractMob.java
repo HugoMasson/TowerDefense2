@@ -10,11 +10,12 @@ public abstract class AbstractMob {
 	double maxHealth, health, x, y, targetX, targetY;
 	double speed;
 	int caseSize, padding, timer;
+	boolean immune = true;
 	Case[][] map;
 	
 	public AbstractMob(int _maxHealth, double _speed, double _x, double _y, int _caseSize, int _padding, Case[][] _map, int _timer) {
 		maxHealth = _maxHealth;
-		health = 0.3*_maxHealth;
+		health = _maxHealth;
 		speed = _speed;
 		caseSize = _caseSize;
 		x = _x;
@@ -54,6 +55,7 @@ public abstract class AbstractMob {
 
 	public boolean move(CasePath casePath) {
 		if(timer <= 0) {
+			immune = false;
 			int index = -1;
 			int xCase = (int) (x/caseSize);
 			int yCase = (int) (y/caseSize);

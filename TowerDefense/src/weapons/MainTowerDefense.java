@@ -8,9 +8,10 @@ import java.awt.Rectangle;
 public class MainTowerDefense  extends AbstractDefense {
 	
 	int hp = 10;
+	double dmg = 10;
 
 	public MainTowerDefense(int _x, int _y, double _angle) {
-		super(_x, _y, 500, 100);
+		super(_x, _y, 500, 60);
 	}
 
 	public void setAngle(double a) { angle = a; }
@@ -38,5 +39,11 @@ public class MainTowerDefense  extends AbstractDefense {
 
 	@Override
 	public double getAngle() { return angle; }
+
+	@Override
+	public double attack() {
+		return dmg;
+		
+	}
 
 }
